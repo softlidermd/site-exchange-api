@@ -1,0 +1,762 @@
+{
+	"info": {
+		"_postman_id": "2312fcc2-6c56-4681-b642-73d31e03e2ac",
+		"name": "SL: Site exchange",
+		"description": "### **API для взаимодействия с 1С Управление Компанией для Молдовы**\n\nRoot URL:\n\nhttp://{_serverAdress_}/{_baseName_}/hs/site-exchange/{exchandeID}/{method}\n\n_serverAdress_\n\n_baseName_ - имя публикации\n\n_exchandeID - идентификатор настройки обмена в 1C_\n\n### История изменений\n\nВерсия 1.0 - 2026.04.02\n\n### Заметки:\n\n- Обмен может быть настроен на получение всех данных, либо только изменений, тогда в пакете данных будет заполнен параметр messageNo\\*  \n    \\*После чтения данных на стороне сайта требуется оповестить 1С о завершении приема (метод confirm с передачей номера сообщения).\n    \n- Режим иерархии может быть выбран на стороне 1С: группы, категории или произвольная иерархия (настраивается вручную)\n    \n- Остатки выгружаются по всем складам, либо только по тем, что указаны в отборе\n    \n- Возможна детализация товаров по характеристикам (тогда сам товар считается мастер-товаров), если это настроено в учетной системе, например\n    \n    - товар \"iPad Air 11\", характеристики: \"128GB\", \"256GB\". Цены и остатки в таком случае выгружаются в разрезе характеристик\n        \n- Для обновления статуса заказа на сайте поддерживается webhook. Для этого в настройках обмена следует указать полный адрес скрипта на сайте и API ключ для отправки в запросе. Пример отправляемого запроса:  \n    curl --request POST  \n    [\"https://mysite.md/order-status\"](https://mysite.md/order-status)  \n    \\--header \"Content-Type: application/json\"  \n    \\--header \"Accept: application/json\"  \n    \\--data \"{  \n    \"id\": \"123456\",  \n    \"api_key\": \"861b9d827417dec90\"  \n    }\"",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "catalog",
+					"id": "ca8ccbdb-7654-4fbf-94bd-cf39b81580d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/844ce6e-818a-11f0-aa79-00155d589d02/catalog/",
+						"description": "Получить структуру каталога товаров.  \nКаталог состоит из групп (Groups - тип иерархии определяется в учетной системе) и категорий товаров (Categories) - категория объединяет однотипные товары и содержит перечень свойств, которые характерны для каждой категории (например, размер + бренд + цвет для обуви или ширина, высота - для элементов мебели)."
+					},
+					"response": [
+						{
+							"id": "991db53c-31e9-4733-80e9-a2e04d596421",
+							"name": "example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.1.66:30082/test/hs/site-exchange/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/catalog/"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:45:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49821"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2025-08-14T17:45:31\",\n        \"catalog\": {\n            \"Groups\": [ // иерархия папок / категорий / доп.реквизита - в зависимости от выбранных настроек\n                {\n                    \"Id\": \"28969cdd-ea97-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Компьютерные столы\"\n                },\n                {\n                    \"Id\": \"6afde84e-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Планшеты\"\n                },\n                {\n                    \"Id\": \"8f80266c-eabb-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Компьютерные кресла\"\n                }\n            ],\n            \"Categories\": [ // описание категорий товара и набора их свойств\n                {\n                    \"Id\": \"28969cdd-ea97-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Компьютерные столы\",\n                    \"Properties\": [\n                        \"28969ce0-ea97-11e5-80c8-50e54939487c\",\n                        \"28969ceb-ea97-11e5-80c8-50e54939487c\",\n                        \"28969cee-ea97-11e5-80c8-50e54939487c\"\n                    ]\n                },\n                {\n                    \"Id\": \"6afde84e-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Планшеты\",\n                    \"Properties\": [\n                        \"6afde851-e9fc-11e5-80c6-50e54939487c\",\n                        \"6afde962-e9fc-11e5-80c6-50e54939487c\",\n                        \"6afde974-e9fc-11e5-80c6-50e54939487c\"\n                    ]\n                },\n                {\n                    \"Id\": \"8f80266c-eabb-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Компьютерные кресла\",\n                    \"Properties\": [\n                        \"8f80266f-eabb-11e5-80c8-50e54939487c\",\n                        \"8f80267a-eabb-11e5-80c8-50e54939487c\"\n                    ]\n                }\n            ],\n            \"Properties\": [ // доп.свойства и возможные значения\n                {\n                    \"ForItems\": true, // признак того, что свойство доступно для товара, может отсутствовать\n                    \"ForCharacteristics\": false, // свойство доступно для конкретной характеристики, может отсутствовать\n                    \"Id\": \"6afde851-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Producator\", // наименование свойства на румынском\n                    \"DescriptionRu\": \"Производитель (Планшеты)\", // наименование свойства на русском\n                    \"Type\": \"Справочник\", // тип значения - число / булево / строка / дата / Справочник\n                    \"Values\": [ // перечень доступных значений, свойство доступно только для типа Справочник\n                        {\n                            \"Id\": \"6afde855-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"ACME\", // наименование значения на румынском\n                            \"DescriptionRu\": \"ACME\" // наименование на русском\n                        },\n                        {\n                            \"Id\": \"6afde859-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"Amazon\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"6afde87a-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"DELL\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"6afde959-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"Xiaomi\",\n                            \"DescriptionRu\": \"\"\n                        }\n                    ]\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde984-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Размер экрана\",\n                    \"DescriptionRu\": \"Размер экрана (Планшеты)\",\n                    \"Type\": \"Число\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde985-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Разрешение экрана\",\n                    \"DescriptionRu\": \"Разрешение экрана (Планшеты)\",\n                    \"Values\": [\n                        {\n                            \"Id\": \"6afde986-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"1024x480\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"6afde987-e9fc-11e5-80c6-50e54939487c\",\n                            \"Description\": \"1024x600\",\n                            \"DescriptionRu\": \"\"\n                        }\n                    ],\n                    \"Type\": \"Справочник\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde99c-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Размер встроенной памяти\",\n                    \"DescriptionRu\": \"Размер встроенной памяти (Планшеты)\",\n                    \"Type\": \"Число\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde99d-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Слот для карты памяти\",\n                    \"DescriptionRu\": \"Слот для карты памяти (Планшеты)\",\n                    \"Type\": \"Булево\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde99f-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Поддержка LTE\",\n                    \"DescriptionRu\": \"Поддержка LTE (Планшеты)\",\n                    \"Type\": \"Булево\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde9a4-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"GPS\",\n                    \"DescriptionRu\": \"GPS (Планшеты)\",\n                    \"Type\": \"Булево\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"6afde9a6-e9fc-11e5-80c6-50e54939487c\",\n                    \"Description\": \"Время работы\",\n                    \"DescriptionRu\": \"Время работы (Планшеты)\",\n                    \"Type\": \"Число\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"28969ce0-ea97-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Производитель\",\n                    \"DescriptionRu\": \"Производитель (Компьютерные столы)\",\n                    \"Values\": [\n                        {\n                            \"Id\": \"28969ce1-ea97-11e5-80c8-50e54939487c\",\n                            \"Description\": \"CROWN\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"28969ce2-ea97-11e5-80c8-50e54939487c\",\n                            \"Description\": \"Red Black\",\n                            \"DescriptionRu\": \"\"\n                        }\n                    ],\n                    \"Type\": \"Справочник\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"28969ceb-ea97-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Тип\",\n                    \"DescriptionRu\": \"Тип (Компьютерные столы)\",\n                    \"Values\": [\n                        {\n                            \"Id\": \"28969cec-ea97-11e5-80c8-50e54939487c\",\n                            \"Description\": \"компьютерный стол\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"28969ced-ea97-11e5-80c8-50e54939487c\",\n                            \"Description\": \"стол для ноутбука\",\n                            \"DescriptionRu\": \"\"\n                        }\n                    ],\n                    \"Type\": \"Справочник\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"8f80267a-eabb-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Для руководителя\",\n                    \"DescriptionRu\": \"Для руководителя (Компьютерные кресла)\",\n                    \"Type\": \"Булево\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"8f80267b-eabb-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Для детей\",\n                    \"DescriptionRu\": \"Для детей (Компьютерные кресла)\",\n                    \"Type\": \"Булево\"\n                },\n                {\n                    \"ForItems\": true,\n                    \"ForCharacteristics\": false,\n                    \"Id\": \"8f80267c-eabb-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Материал обивки\",\n                    \"DescriptionRu\": \"Материал обивки (Компьютерные кресла)\",\n                    \"Values\": [\n                        {\n                            \"Id\": \"8f80267d-eabb-11e5-80c8-50e54939487c\",\n                            \"Description\": \"искусственная кожа\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"8f80267e-eabb-11e5-80c8-50e54939487c\",\n                            \"Description\": \"натуральная кожа\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"8f80267f-eabb-11e5-80c8-50e54939487c\",\n                            \"Description\": \"сетка\",\n                            \"DescriptionRu\": \"\"\n                        },\n                        {\n                            \"Id\": \"8f802680-eabb-11e5-80c8-50e54939487c\",\n                            \"Description\": \"ткань\",\n                            \"DescriptionRu\": \"\"\n                        }\n                    ],\n                    \"Type\": \"Справочник\"\n                }\n            ],\n            \"Warehouses\": [ // доступные склады, если в настройках используется несколько складов\n                {\n                    \"Id\": \"28969cdd-ea97-11e5-80c8-50e55939487c\",\n                    \"Description\": \"Magazin №1\"\n                },\n                {\n                    \"Id\": \"6afde84e-e9fc-11e5-80c6-51e54939487c\",\n                    \"Description\": \"Magazin №2\"\n                }\n            ],\n            \"PriceTypes\": [ // виды цен, если в настройках используется несколько. Имеет смысл для B2B\n                {\n                    \"Id\": \"28969cfe-ea97-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Розничная\",\n                    \"Currency\": \"MDL\"\n                },\n                {\n                    \"Id\": \"28969cfe-ea96-11e5-80c8-50e54939487c\",\n                    \"Description\": \"Опт\",\n                    \"Currency\": \"MDL\"\n                }\n            ]\n        }\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "items",
+					"id": "6e4da5db-399f-4625-afb3-74464890578d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/items",
+						"description": "Получить все, или только измененные товары - в зависимости от настроек учетной системы.  \nИзмененными товары считаются также при обновлении остатка или цены."
+					},
+					"response": [
+						{
+							"id": "4dc5a08e-9f09-40ec-b579-40e6e07db235",
+							"name": "item by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.1.66:30082/test/hs/site-exchange/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/items/8f802656-eabb-11e5-80c8-50e54939487c"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:47:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6272"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2025-08-14T17:47:56\",\n        \"items\": [\n            {\n                \"Id\": \"8f802656-eabb-11e5-80c8-50e54939487c\", \n                \"Status\": \"\", // \"Удален\", если товар помечен на удаление\n                \"Description\": \"iPad Air 11\", // наименование\n                \"LongDesc\": \"\", // описание\n                \"Group\": \"6afde84e-e9fc-11e5-80c6-50e54939487c\", // группа товара, может соответствовать категории\n                \"UnitOfMeasure\": \"шт\",\n                \"Price\": 9506.7, // если используется один вид цен, иначе отсутствует\n                \"PreviousPrice\": 0, // предыдущая цена, интервал указывается в настройке\n                \"Stock\": 0, // остаток по всем складам, если не используется детализация, иначе отсутствует\n                \"Category\": \"28969cdd-ea97-11e5-80c8-50e54939487c\",\n                // дополнительные поля, если настроены в учетной системе\n                \"SKU\": \"\", // артикул \n                \"Code\": \"\", // код товара \n                \"Barcode\": \"\", // штрихкод\n                \"Weight\": 0.350, // вес единицы \n                // ...                \n                \"Prices\": [ // массив цен, если используется несколько видов цен, иначе отстутствует\n                    {\n                        \"Id\": \"28969cfe-ea97-11e5-80c8-50e54939487c\", // ID цены\n                        \"CharacteristicId\": \"28969cfe-ea97-11e5-80c8-50e54039487c\", // ID характеристики, если они используются. Может отсутствовать                        \n                        \"Price\": 9506.7, \n                        \"UnitOfMeasure\": \"buc\" // единица измерения цены\n                    },\n                    {\n                        \"Id\": \"28969cfe-ea96-11e5-80c8-50e54939487c\",\n                        \"CharacteristicId\": \"28969cfe-ea97-11e5-80c8-50e54039487c\",                         \n                        \"Price\": 8506.0,\n                        \"UnitOfMeasure\": \"шт\"\n                    }\n                ],\n                \"Stocks\": [ // массив остатков в разрезе складов, если используется несколько складов, иначе отстутствует\n                    {\n                        \"WarehouseId\": \"28969cfe-ea97-11e5-80c8-50e55939487c\",\n                        \"Count\": 5 // количество\n                    },\n                    {\n                        \"WarehouseId\": \"28969cfe-ea96-11e5-80c8-51e54939487c\",\n                        \"Count\": 0\n                    }\n                ],\n                \"Properties\": [ // ссылки на свойствоа и их значения\n                    {\n                        \"Id\": \"28969cfe-ea97-11e5-80c8-50e54939487c\",\n                        \"Value\": true\n                    },\n                    {\n                        \"Id\": \"28969cf6-ea97-11e5-80c8-50e54939487c\",\n                        \"Value\": \"28969cfa-ea97-11e5-80c8-50e54939487c\"\n                    },\n                    {\n                        \"Id\": \"28969ce0-ea97-11e5-80c8-50e54939487c\",\n                        \"Value\": 5\n                    }\n                ],\n                \"Characteristics\": [ // Достуные характеристики и их свойства, может отсутствовать\n                    {\n                        \"Id\": \"28969cfe-ea97-11e5-80c8-50e54039487c\",\n                        \"Description\": \"128GB\",\n                        \"Properties\": [ // ссылки на свойства характеристики и их значения, аналогично товару\n                         ]\n                    }\n                ],\n                \"Images\": [ // Доступные картинки, если выгрузка изображений включена в учетной системе\n                    {\n                        \"Id\": \"28979cfe-ea97-11e5-80c8-50e54039487c\", // ID, по которому можно получить само изображение по запросу /image/{Id}\n                        \"Extension\": \"png\",\n                        \"Size\": \"\" // размер файла в байтах, может использоваться для сравнения с существующим на сайте, чтобы принять решение о загрузке\n                    }\n                ]\n            }\n        ]\n    },\n    \"message\": \"\"\n}"
+						},
+						{
+							"id": "2ef48773-b42f-4578-8544-e4770359ca99",
+							"name": "all items",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/items"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:48:17 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "6272"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2025-08-14T17:47:56\",\n        \"items\": [\n            // ...\n        ]\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "prices",
+					"id": "3cd64807-096f-4e03-809d-27853c8c2c3a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/prices",
+						"description": "Получить все, или только измененные цены - в зависимости от настроек учетной системы.  \nТакже позволяет получить цены конкретного товара."
+					},
+					"response": [
+						{
+							"id": "e3c3f610-c414-407a-977f-caa3775d560d",
+							"name": "example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/prices"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 02 Apr 2026 12:57:11 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"items\": [\n            {\n                \"Id\": \"8f802656-eabb-11e5-80c8-50e54939487c\", \n                \"Price\": 9506.7, // если используется один вид цен\n                \"Prices\": [ // если используется несколько видов цен\n                    {\n                        \"Id\": \"28969cfe-ea97-11e5-80c8-50e54939487c\", // ID цены\n                        \"CharacteristicId\": \"28969cfe-ea97-11e5-80c8-50e54039487c\", // ID характеристики, если они используются. Может отсутствовать                        \n                        \"Price\": 9506.7, \n                        \"UnitOfMeasure\": \"buc\" // единица измерения цены\n                    },\n                    {\n                        \"Id\": \"28969cfe-ea96-11e5-80c8-50e54939487c\",\n                        \"CharacteristicId\": \"28969cfe-ea97-11e5-80c8-50e54039487c\",                         \n                        \"Price\": 8506.0,\n                        \"UnitOfMeasure\": \"шт\"\n                    }\n                ]\n            }\n        ]\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "stocks",
+					"id": "a25745b5-7912-47b9-86a8-0706a1dde0bc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/stocks",
+						"description": "Получить актуальные остатки всех или одного товара в разрезе складов (если используется несколько)."
+					},
+					"response": [
+						{
+							"id": "5a052cf0-9080-4706-a354-432a0e2469f7",
+							"name": "example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/stocks"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 02 Apr 2026 12:57:50 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"items\": [\n            {\n                \"Id\": \"8f802656-eabb-11e5-80c8-50e54939487c\", \n                \"Stock\": 0, // если не используется детализация\n                \"Stocks\": [ // если используется несколько складов\n                    {\n                        \"WarehouseId\": \"28969cfe-ea97-11e5-80c8-50e55939487c\",\n                        \"Count\": 5 \n                    },\n                    {\n                        \"WarehouseId\": \"28969cfe-ea96-11e5-80c8-51e54939487c\",\n                        \"Count\": 0\n                    }\n                ]\n            }\n        ]\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "confirm receiving messageNo",
+					"id": "002ec08a-7d67-488b-b39f-eb57b0fefabd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/confirm/{messageNumber}",
+						"description": "Если настроена выгрузка только измененных товаров, то после чтения следует вызвать данный метод для снятия объектов с регистрации."
+					},
+					"response": [
+						{
+							"id": "5198b3c9-565e-4121-b734-bb7d6f2107ea",
+							"name": "example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06//confirm/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 08 Nov 2024 09:00:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.23 (Win32) OpenSSL/1.0.2h PHP/7.1.1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "image",
+					"id": "e982e777-ac59-459f-8bbf-d790e17c3972",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/image/8f802658-eabb-11e5-80c8-50e54939487c",
+						"description": "Получить изображение по идентификатору.  \nРазработчик сайта анализирует ответ /items и если получены новые картинки, принимает решение о загрузке."
+					},
+					"response": [
+						{
+							"id": "a40e850d-f1fe-4e0a-bcb1-7732666e5ace",
+							"name": "example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/image/8f802658-eabb-11e5-80c8-50e54939487c"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Aug 2025 09:09:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39966"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"Id\": \"8f802658-eabb-11e5-80c8-50e54939487c\",\n        \"Extension\": \"jpg\",\n        \"Size\": 28103,\n        \"BinaryData\": \"/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAPAAA/+4ADkFkb2Jl\\r\\nAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoKDBAMDAwMDAwQ\\r\\nDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8f\\r\\nHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AA\\r\\nEQgBhwHgAwERAAIRAQMRAf/EAMYAAQAABwEBAAAAAAAAAAAAAAABAgMEBQYHCAkB\\r\\nAQEBAQEBAQAAAAAAAAAAAAABAgMFBAYQAAEDAwEEBAgIBwoLBwQDAAEAAgMRBAUG\\r\\nITESB0FRYRNxkaGxwSIyCIHRQlJyshQVYoKSosIjM+FTc5OzJCU1FhfSQ2ODozRk\\r\\ndJSkdfBEVLRlVjfxRSY2w+NVEQEAAgECBAMFBwMFAQADAAAAAQIRAwQhMUESURMF\\r\\nYaEiUhRxgZEyQmIVwTM08NFyIySx8ZJE/9oADAMBAAIRAxEAPwD1SgICAgICAgIC\\r\\nAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC\\r\\nAgICAgICAgICAgICAgICDn3NbXma0q/GjGsheLvvu975pd+z4KUoR85ZtOGqxlz7\\r\\nU/PXWmO0xi8tbstRLdXlxbXDXRFzeGJjHMI9atfWKlbZJq1lnvQa8HtQWLv808fp\\r\\nraYVD71GtI28TrGwdT8CXb/pER6H0Ln7jUOj8Pm7ljI7jIWsdxLHHXga54qQ2pJo\\r\\npEjOqggICAgICAgICAgICAgICAgICAgICAgklmhiaHSvbG0kNBcQ0VOwDb1oLRue\\r\\nwbvZyNs7wTRn9JBUblcW72byA+CRnxoK0VzbzEiKVkhG/hcHeZBUQEBAQEBAQEBA\\r\\nQEBAQEBAQEBAQEBAQEBAQEBAQcd94QHhwR7bkeSNc7t0cb1s2vLjGu+Zl52/lWzT\\r\\n+ilOa2cz4uFdGMpHuJG1CHt7klJ3nKrTLuqyY38kkLNepLd1pBAQEBAQEBAQEBAQ\\r\\nEBAQEBAQEBAQEBBqHMs/0diGn5WWtPzS53oWNTk1Tm8Vx30zZJAHHhL3uHZVxK2m\\r\\n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\\r\\nHBn3gy4dJFVxo0FzHgiv4TQvhvtrxyy9Km6058FDCDUmZjkkxovb2OIhsz7Z9xKG\\r\\nk7g4tLqFfLNNSPmfTF9KflXkulNXPdxPscnUbqsuT5CCFYnVjxJrozzmrL6dl5h6\\r\\nelmkxtvdNdO0Mk76zdJsaaje0Lr52r4e5ynbaE/q97YGa95st9qCU+CxI/QKzOtq\\r\\n/L7j6XQ+b3wqjmJzTG+3m/4T/wDrWfN1vD3Sv0mh83vhYZXVGusq2Nt/aXbu6JLO\\r\\n6ilg9rYa92xtd3SuWpbWv7Pxd9DT2+nymJ+3DH9/qb/weQ/KuviXGaavjb3u/fof\\r\\nt9x3+qa0Fpkfyrr4lrt1f3e87tD9vuTCTVZ3WuR/KuviU7dX93vO7Q/b7keHVx3W\\r\\n2S/KuviTt1v3e87tD9vuY+4zuSt7z7FPezwXoIb9lfcytmq72R3bjxVPRsTGt+73\\r\\nn/R+33Ml9g148erb5X/mVe3W/d70zt/2e5ZZSXVOJhFxlLi/x8LiGtmuJJ4mFx3D\\r\\nieQKlaiNb93vZn6f9vuYOTSDdU3Ely2wky108gS3MbXzSEgUbxSNBO4bKldKX145\\r\\nZc70208+1UsOSuUsr+O9t8Ffl0fEO5kie+Nwc0tIc1w2719FdxuPlfNbbbaf1Y+9\\r\\nmBy61F/7UP8AwQ+Ja+p1/kY+l23zot5c6oHs6ZIr1WQ+JX6nX+RPpdt84eXOqyD/\\r\\nAPjLv+Cb8SsbjX+RJ222+c/u41X/AO2Xf8E34lfqNf5E+m23zpTy11T/AO2Xf8E1\\r\\nPqNf5D6bbfOgeW2qf/bTv+BHxKTuNf5D6XbfOpv5aalLgX6Yc6n+wj4lPqdf5F+l\\r\\n2/zpmcuM9G5r2aVe17CHNc2zoQQagghu8LM7nX+VuNtto/X72a+zc1R/icx/zPxr\\r\\n5OzX/c+3u2/7PclMfNIHbFmB8N0nbr/u95nb/s9yUu5nt/xeZ8d18SY1vG3vX/z+\\r\\nFPclM/Mwb25kfDdJ/wB3jb3n/n8Ke5KbrmUD/wDeB+NdfEmdb93vJjb/ALPcoyXP\\r\\nMl2+TNDwPux5lYnX/d72Zrt5+T3JbCXmHZ5SDJj70ubm2a9sLbxk1yxolFHUbI00\\r\\nr2FdI1NbwmXO2ht56xH3w2Nuu+aIG3HOd4bKQeZXztX5f/rl9JofN74Wt9zX1njn\\r\\nRtycFtZulBMTbmJ8JfTeW8bm1pXoV8/V+X/6n0ej8/vhczax5mXrIZbezurdlOJs\\r\\nlnDMxsgdShdseHDqWLauvPKJh009vt65zMW++Fl/fHrXH3TrO4vmi7joH210yMSA\\r\\nkVHE0ta8K119xHj+C2221nw//Zt2nOY/MvIXVkH4QT2NzJG110IJmtEbyKyB4PDT\\r\\nhNar6NPc6+Yia+58uts9vETMW97rwXqvHEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBB\\r\\nzf3iGcXKPN9htj/zMaDUPdLJ/sxnW13X7TTwxp0Hd0BAQNqIbUChQKFA2oog8i81\\r\\nWcXvNt2bTcYyh/zLFMcTo9dKjl/vHY52Q5ZTW0cbX3D76yFtxGgbI6drK16NjiFJ\\r\\nF7yW0teaZwuQxd86KS7iuW8csBcWkGJrgKuDTs4j0JHIdDVBAQEBAQEBAQEBAQEB\\r\\nAQEBB5m97R3HqbSsG+lvcup9KSMehSYWHo3Cs7vD2LPmW8TfEwBVHnnWWkL7Ne8H\\r\\nf3sFsx+OsTjBkZHloBL2M9Wh2ucW0+BZ6r0ekI42RxtjjaGRsAaxjRQADYAAOgLS\\r\\nJkBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQc894BvFyjz/AGNgPiuY0Gke6Wf6C1C3\\r\\nqvIjXwxn4kHekBAQEBAQEBAQeR+aTg33m2uO77Rix44WBTPEnk9cKjQede3R0A68\\r\\nnj//ADLFJWGyadcHXGU6xcgH+KYkck6s0qCAgICAgICAgICAgICAgICDzF70h7zm\\r\\nFpqDfSyJp9O5p+ioPTFm3htIW/NjaPE0Kjl9m3vOYWq5Ol2SxkX5EERWepPJ1VaB\\r\\nAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEGh89m8XKXUQ6oIz4p4yg577pUgdi9TNHy\\r\\nbq3+o9Oh1d+QEBAQEBAQEBB5F5qDi95prf8AacWfFHGpjiTyeulRofOgV0lat68p\\r\\nj/8AzDVJIbDpsEXOWJ6boU/imJHI6s2qCAgICAgICAgICAgICAgICDzF7xg7/m/p\\r\\n6D5tlbin0rqRQ6PTjG8LGt6gAqOW4Ed5rLUcnz8/bs/ioGj9FSOZPJ1NUEBAQEBA\\r\\nQEBAQEBAQEBAQEBAQEBAQEBAQaNzwbXlRqQf7MD4pGFBzT3R3D7NqtnSLm2J29bH\\r\\np0Or0IgIJJLiCMVkkawfhOA86mRjrvVWmbMVusraQ0+fPGPSmRhLvm9yztK9/qOy\\r\\nBHQ2Tj+qCmTDB3nvFco7atc0JiP3qN7vQFMmGFvPet5XwA9yby5PQGQ085VyMFfe\\r\\n+FpVjSLLDXUz+gyOaweQFQa5ee+RlzX7Hp2Bo6O9le/6vCg5PqTmjkMzrZ2tZ8dH\\r\\nFlg6F7Whz+4a63a1sfqGp+SK+sg9w6GzV1nNG4XM3YYLrI2UFzOIwQwPlYHODQSd\\r\\nlStDX+cwJ0vZAdOVsP5YKSQ2PTzgZsnQ7rqn+jaUjkdWZVBAQEBAQEBAQEBAQEBA\\r\\nQEBB5q5w4+/yXPnGi2t5J4rO0sXXL2NJbGw3DzxPcPZHrJ1HpUIOXaTHFqPMP/fN\\r\\nSXA/i2OHoWY5k8nUVoEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQahzdibLy1z8bxV\\r\\nrrb1h2cbaoNd5QYfFYnN563xtqy0glgsZnRx14S9zH1dQk7U6HV1EoPJ/PbUGfsM\\r\\n3qE2mSurfuryJsYjme0NYWR+qADQDauc82ujlD7bVl8xslzlZpGvAd680jthFetd\\r\\nO1jKidLXMhrNdl3hq7zlO0yqM0jaj25nHwABXBlcN0vjWjbxu8JomEyqt0/i2f4k\\r\\nHwklMGU4xePYPVt2eJMA63t2+zG0eABQhis+GjFzAADa36wRp7h5Sf8AxhpX/pdr\\r\\n/JNQWPOMV03YD/1ax/lVJIbBpqve5Wv/AIw08HdMSOR1ZtUEBAQEBAQEBAQEBAQE\\r\\nBAQEHJ8g3veZ2oxXdHiYvG7i6PpKdR1hUcu0Ie8ydxJ+/ahyb/yTIFmOZPR1FaBA\\r\\nQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEGq81BXl3qDss3nxUKDBctCTqPKmuw2NgaU\\r\\n7H9KQdV/zl1/faC0JdaksrSK9uIJoImwTOc1h76QMqS3bsqg8l6m1Zk9YaVyGpMm\\r\\nyOO9v7rvJY4AWxt4JGxta0EuOxrRvKxHNvoktf8AVIP4Nn1QuzkqqIII9CCVyCm/\\r\\nckqpSDYsjC6iH9FTeFv1giw9x8qAByz0sB//AJdp/ItRWP5xH/8AHccOvL2P8opJ\\r\\nDY9O+1kT/tTvqMSOR1ZhUEBAQEBAQEBAQEBAQEGD1rqe30vpi/zc7O8Fqwd3FUDj\\r\\nkkcI427egvcKqTPBm1sQ825r3lOYEGejgtLiy+xyuHE0wBwaC4tIa7irQU6Vx77P\\r\\nm8+fB6F5da0GrdPjIOjbFcxSOguY2V4A9oDhwk7aFrgutLZh9GnfujLUm/reZmp+\\r\\nn+d4mMdPswxuV6tzydWVHLuWdXm2k/fcnlZa/jvHpWYJ6OorQICAgICAgICAgICA\\r\\ngICAgICAgICAgICAg1jme2vLzUQ/2Cc+JhKDW+WLh/aPICm12OsXV7BxhSBjPetb\\r\\nXktlD824sz/zLFR5YxYJ5Wzdkzq/xzVz6tzyZWy/1O3/AINn1QuzlKsiCAggSgkK\\r\\niqMlVBhtRA/dM/hZ9YIsPcfKn/400t/0u0/kWorG84v6gxY68xY/XKk8lhsOmCSc\\r\\npXovXgeDu4z6VK8iebNrSCAgICAgICAgICAgICDQ+d7MVcct8zZX1/b2Es0PeWT7\\r\\nmVkIdPbubMxrS/eS5gGzrWbJMZh4VbPJNeWziST0/A5x6lyfHMPa/u8WFpZ8vbd7\\r\\nbmG4vb6R13dsikZI6PvABGx/CSQRG0bHbjVdKRwfTp1xVRxFJOYWpZDTbmLKMbv8\\r\\nXbR9adXWY4OqraOYcp2h+PxLzvcb+b8uUD0rME9HT1oEBAQEBAQEBAQEBAQEBAQE\\r\\nBAQEBAQEBAQa7zGbxaC1CP8A0+4/kyg1Hle8nUlz1OxNmfhDnLMC296VteSua/Bl\\r\\ntD/zUa0PKmG28rrr8GV/8qxc+rc8mTsf9Qtv4Jn1Qu0OUq6IICCVxCKlKyKbxWqL\\r\\nDDajH9Ez+Fv1givcXKsU5aaW/wCl2n8i1BjecJ/oLE9uYsvrOUlYbFpmlMl/vr/5\\r\\nONKk82ZVQQEBAQEBAQEBAQECqAg4f72GKgn0bico4frLG/EIJ+ZdRuDvzo2L59zH\\r\\nwvo20/Fh5ysbWy7gPexgkO2IkAHtovGve3i9ONKnhD0f7sGCbDhMtmnAB91cC1iD\\r\\nQGgMhHeONBTe+byL0fT4zWbT1fDvpiLRWOjL6Zfxazzr6/tNRFn8Vb0/RX2RzfJP\\r\\nJ1Od/BBK/wCa1x8QW2XNuUbf6KwXbYTyn8eZvZ2qVal01aZEBAQEBAQEBAQEBAQE\\r\\nBAQEBAQEBAQEBAQYLXreLRGfH/p115IXIND5WSE6sLeh2CtXfCJKelZgVveebxck\\r\\n9Qfgm1P/ADUS0PJ2A9blffjpbK/+UjXPq3PJk8f/AFfbfwTPqhdocpV0QRRMiQ71\\r\\nkQQU39KLDDaj/qmfwt+sFMq9x8rP/jXS/wD0u0/kWqjF84RXCYcdeZsvO5SeSw2D\\r\\nS3/3X/f5KfxcaleRPNnFpBAQEBAQEBAQEBBTuZ229vLO+pZCx0jgN9Ggk+ZBxJnv\\r\\nO2VyA+xwbnxu2tMtwGu8TY3Dyrz777E8nqU9NzH5kkvvFZsisOnYqdHFcO9Eax/I\\r\\n+xv+KnxaJzS5o6x1tgDhDg7a2te9juO9ZK6SUPiNW04ixo7d6lt5W8YngR6felsw\\r\\n5jFZZyONrJLElzD6rvV2eJy+O1az1fTXTvHR1fQHNjUul9Osw1vZWzI2PfJ3srXF\\r\\n7nyHiJNJKbNy66e5tp17a4ZnYxqT3WzC9xfMW+s4Lm5gZEc3c5GTJOuHCtvWVpaW\\r\\nd2HcfT85a+vnw4s/xkcs8GwW/vDZOG2mt8/iGOEkbmNvLF5DQS0gF0cnFT8pdtPf\\r\\n93Rx1fTO3lLZtAZbEYSwwDcpdR2YlxYZA+Y8DXPMgcRxHZuC+3za15y8+NK1vyxn\\r\\nDp9vc29zEJbeVk0TvZkjcHtPgIqF1iYnk5TExzVFUEBAQEBAQEBAQEBAQEBAQEBA\\r\\nQEBAQEBBhtaN4tHZ1vXj7sf6B6DnfKhxOqYep2AhNe0St+NZgX/vLtryS1L2Mtj/\\r\\nAM3EtDyTpv1uWWTHVJJ54yufVrPBkcb/AFdbfwTPMuznK5qiJSVMqlUBBBBI/ciw\\r\\nw2o6/dM/hZ9YLMq9x8rP/jXS3/SrP+RatDGc3v6nw3bmbP8ATUnksLq31VgsBHd/\\r\\ned0y3feX8zbVhrV7mRRkgUGzoFTs2rtt9vfUz2xnHNx3G4pp47pxlZ8vuaI1PdMs\\r\\nb/HnGX1xaNyNg0u447i1c8xlzHUHrMc2jh8K+nebONL8tu7HP2TL5tru7an5o7c5\\r\\nx7cN9XwvuEBAQEBAQEBAQQLQ4EHaDsIQcl53aI0zaaGvclisTb2mWbNbCGa0hZHI\\r\\n50k7GFvqDbxBxXHU0aTHGHfT3GpWeEysOS/L3E3+m7ufU2MMuRjvHwiK6a5jo2Mj\\r\\nYQOEFu/irtXOu10/lh0tvdb5pdD/ALsNAUp9x235J+Na+k0vlhPrdb5pUn8qOXb9\\r\\n+DgH0S9vmcE+l0/lg+t1vmlZXPJPlvOP6sdEeuOedv6ZUnZ6fg19fq+Lz7o7SFlq\\r\\nbmfldLvmktsbbXF7HBLFQyNZbvc2OpcCDuFVznZ09rp/IanXDeM/7v19g8Tf5Kzz\\r\\npvILGCW4NtNDwvc2JpeWhweW1oOpcr7Dwl20/U8c4azy905mdeTSQ28/dQWMYL5r\\r\\nkue1nESGsY0Hpody4/x9p/U7fyenXlV37l3oqTSeLuLOW5ZdSXE3fOdGwsa31Q2l\\r\\nCTXcvu2u3nSiYmc5efvN1GtaJiMYbWvqfGICAgICAgICAgICAgICAgICAgICAgIC\\r\\nDFarbxaWzLeuxuR44XIOa8pi3+0WOdX1pNPio7GzR0PlWYWW4c29IZHWHLvM6bxs\\r\\nkUV9kI42wSTlwjBjmZJ6xaHHczqWkeR8vojO6J0vmtP5xsQv7d4kJgf3kbmTd2Wu\\r\\na6jT4wsTzhY5LLF/1ba/wTfMusMSuQKLIg5BKUBFQRISybkaYXUlBiZhUVq2g6fa\\r\\nCzI9y8sWcHLnS7a1pirP+QYtQMTzfP8ARGEHXmrMeR6llhouqcHFntV5vDztq44b\\r\\nIT4on5N22Vjg5vaDG2vYvS2epNNvNo599fw4vO3enF9aInl2W/HgteWWTt8lNy0m\\r\\ntSBc2LMxa3YG9sDWMeA7s9dq+ze146lv0zFXy7SZxp16xaz0B0LwntLf7fZC9+wm\\r\\n4j+2FneC24295wVpxcFeKnas90Zxniz3xnGeK4WmhAQEBAQEBAQaVzccRpa3aN8m\\r\\nSx7f+ZYfQpbktebJ6LH6vLu+dkpvIyNvoUryLc2xLSCAg8xch29/zjzNwRU8eRfX\\r\\nwzkelYjm1PJ37mA8R6G1A47B933I8cTh6VqUa5yqwOLxIlZj7VlsH2Nk6fgr68hE\\r\\nhLnVJ2rNFtzdCW2RAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEGO1IK6eyg67Scf6Jy\\r\\nDzV7rmRvL3mLfSXUz5n/AHMWt4yTwsbPEGtaOgDsWK82pjg9TLbLy77yIpnM/wBt\\r\\npan80D0LE81jk5Zif6rtf4JvmXVnC6cQ0VcQ0dZNFlMLSbLYyGokuYweoHiPkqmT\\r\\nCxn1PjWbGccp/BbQfnUTKwsZdYAbI7cA/hv9AUyq6xzNdZt3Dh8TdXVdlbW1kkH5\\r\\nVCEyNox/InnjmKE4qW0jPyrueO3A/FDuLyJKwqWvu86ikyORscrlLe1ucZJbQ3bY\\r\\nmvnNbzg4OFx4AaCQVWc4a6ZeytNYf7l07jMP3vf/AHdaw2nfU4ePuYwzi4amleFb\\r\\nYarzeHFjMC2tAc5Zg/kyLN+TVY4rLIaRyeWJzWCuY7TUGJvrv7K6YF0M0FxGxssE\\r\\ntNtHUBB6Cvo2utFcxaM1nm+fc6M2xNZxavJqPJ3B45t5lI7OMw5EYVkD/nRXIdJD\\r\\nMQPnksZU9i6brfTq5rXhTnEfdhy22zjSmJtxvjj+OXRuVWoL3OaTF5ev7y4ZcTRP\\r\\nfQAnhdXbTp9ZeXtdSb0zPPL0devbbENbsrqGTnPqjMXBItMBjI4nO6gGCR9PynL5\\r\\ns53Mz8tXi0jv3k/tr/8AXTcdcuurC3unMMZnjZL3ZFC3jaHUI6xVelWcxl6sxicL\\r\\nhVBAQEBAQEBBpPNgcWExUf75mLAeKXi/RWbzwarHFldFbbPIO+dkbryP4fQleSW5\\r\\nthWkEBB5p929ne8wMvcfOhuX1+ncNPpXOnVu8cnbuaD+Hl7n6bCbORv5Xq+lbnkz\\r\\nHNT0QzhnvG9DLeyZ4o3H0rNOS35tsW2RAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEF\\r\\nlnG8WFyDfnW0w8cZQeVvdTk4eZl0zodh5APgniKxHNueT1tVbYeZ/eKsL6fPZdkN\\r\\ntLK64srdsDY43PMjhUEMDQeI7NwWLc2o5OTYrldzmycMcdlp/Ix24aAwysFq2nhl\\r\\nMZWmU+seTer9H4KLPaxngx9nPO22jjY915cGV7XPA4GUZ7LD8tJGhuyOmIfZjvrw\\r\\n9phtWnxC5cpgda93DT2g9aakytrqHDQfY7G0ZPAJbmckvdKG+ueNjXCnRwpgencZ\\r\\npvlFgQBY2OEsS35fDbB/5bvW8qmY8WuyfBln620Pas4XZzGxMG5ouoAB8Acr3x4n\\r\\nZbwWU/NTlvD+01Ljh4LiN31SU76+K+Vbwc6iz2JyuY1pnMfO25xgvca4XLCOFzbd\\r\\nsXeOaSdw4SsWnjDdfyy6tFrXR8wBizlg4O2NIuYtvg9Zb748XOKTjOODWuZ9za3e\\r\\nP08baVk7DnLP1o3NePZk6QSs3mMNacTlsmlxw298K1reSmvwNVpPBi3Nx7X2o4OW\\r\\nmodX5W3f3F7k8e+XEgt4gbq5LRGQ2hFGzMkca7EiOJPHDkfLbnnqPSWSxsl/dS3W\\r\\nnp5pH5bHxxRDidKCHTMNOIOa6juEEA0osaWnFOELe825u64u7xWeOeu8M5stjqzM\\r\\nWljBcR1pJbxQtlun7du1jZAV8Mxm9/3WrX/d8exr/wB+rfwxH4R/u7C0UFBsA3Be\\r\\no+pFAQEBAQEBAQaZzNbx2+nYvn5y0HibI70LnqfldNP8zJ6JaRibgmlX314TT+Hc\\r\\nPQtU5MW5tgWkEEk7+7gkf8xpd4hVBwf3eNOZLGZy4vLuINhyGNFxayghwc18za7t\\r\\noOzcVy055ump0dP5rV/sBlmje9sLPy542+lbvOIlmkZlX0g2lxkzTYHwMH4sDfjU\\r\\npyL82yrbIgICAgICAgICAgICAgICAgICAgICAgIMJrXK5PE6UyuTxcP2jIWdu+a3\\r\\nhLS/icwV9ltCdixeZiJxzb04ibRE8nm/Ic8OYuXx80UGRghinjfFIxluwGj2kEcR\\r\\nq5pod4Xn13lon4nq32FZj4HK8Hm9S6Szzclhrh2PvmROg4gGurG+lQQ8Pa4VFdy7\\r\\n114l8k7a0c2xy87Oa8ntakuR1hjYW+ZgXOdW3i6+TXwWsnNvmXJ+01LkPxZi36tF\\r\\nPMt4tRpV8GGyvNbWceyfUWUlkcKhgu5t3bR4oumnF7dXPUtSvRqGoNX5zOxMhv7y\\r\\n5uYo3941s88k3rUIrR5I3FfRSmOuXyampFumGFbG89C64cl3Zz3Vo5zoeEF4o7iF\\r\\ndg2rN6Rbm3TUmvJkY83eN9tkb/xSPSuM7avtdo3dl9Z5m3klbHcM7hjjQytHGB2l\\r\\nuwrlfbzHLi7U3cTOLcG3waatHsa90r5WuFWltA0g9PSvPtrTHsepG3rjnln8S+9x\\r\\nFvLb46WWCCfbNG15o+gptBqsTr2nq1Xb0johJFJcBzZohK13tB4Br41y7+OXfs4Y\\r\\nxwV9JWH3NqjH5Eue3HQTtlngbV1KdLR0rtXcxHN82ptZmPhb/f8AMfUNpqS8vNP3\\r\\nskeLmk7xlpcMBjNQOIlh9mtOgrVt9aLZrPBNP0+s0xeOLgmustnLjVuovveSWeW+\\r\\nlbdxd655EbJHd4xsQeSQxofwtp1L1tDV76RbxeLuNHy7zTwYt9rb/YIhQ/qvZPF1\\r\\n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\\r\\nICAgICAgICAgICAgICAgICAgICAg/9k=\"\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				}
+			],
+			"id": "e667329f-db6c-473d-a364-b976a71d1d10"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "orders",
+					"id": "73fdc683-9d5b-482c-b002-796fff2d1983",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders",
+						"description": "Получает из учетной системы все зарегистрированные заказы (для обновления статуса)."
+					},
+					"response": [
+						{
+							"id": "0e126841-d862-4696-8916-b12f125878e8",
+							"name": "all modified",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.1.66:30082/test/hs/site-exchange/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:22:58 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"orders\": [\n            {\n                \"Id\": \"123456\", // номер заказа на сайте\n                \"Number\": \"000001\", // номер заказа в учетной системе\n                \"Total\": 1200, // сумма заказа\n                \"Canceled\": false, // заказ отменен\n                \"State\": \"Открыт\" // список статусов настраивается в учетной системе. Соответствие статусов \"сайт <=> учетная система\" может настраиваться пользователем\n            }\n        ]\n    }\n}"
+						},
+						{
+							"id": "8110af81-5aaf-4158-8cf0-de5fbb4d1fe8",
+							"name": "order by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders?id=123456",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"4ea3f552-7775-11f0-aaf8-e0d55ec9ad06",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "123456"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:40:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "253"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"orders\": [\n             // ...\n        ]\n    },\n    \"message\": \"\"\n}"
+						},
+						{
+							"id": "e6478b7d-d2dc-4196-b6be-b73577d65b66",
+							"name": "modified from date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders?fromDate=2025-08-01",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"4ea3f552-7775-11f0-aaf8-e0d55ec9ad06",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "fromDate",
+											"value": "2025-08-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 14:44:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "253"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"orders\": [\n            // ...\n        ]\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "orders",
+					"id": "67e15a6c-397c-4725-8c2d-dc4f80e6bd11",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"Id\": \"123456\", // номер заказа на сайте\r\n            \"Date\": \"2024-08-06\", // дата заказа\r\n            \"Time\": \"16:15:00\", // время заказа, опционально\r\n            \"State\": \"Новый\", // статус заказа,  опционально\r\n            \"Currency\": \"MDL\", // валюта, опционально\r\n            \"Buyer\": { // может игнорироваться и всегда подставляться один покупатель, если так настроено в учетной системе\r\n                \"Name\": \"47 Parallel\",\r\n                \"IDNO\": \"\", // фискальный код, опционально\r\n                \"IsOrganization\": true, // истина - юридическое лицо, ложь - физическое\r\n                \"Adress\": \"\", // адрес проживания, опционально\r\n                \"LegalAdress\": \"\", // юридический адрес, опционально\r\n                \"Phone\": \"\", // номер телефона, опционально\r\n                \"Email\": \"\" // адрес эл.почты, опционально                               \r\n            }, \r\n            \"DeliveryDate\": \"\", // желаемая дата доставки, опционально\r\n            \"DeliveryMethod\": \"\", // способ доставки, опционально. Соответствие способов доставки \"сайт -> учетная система\" настраивается\r\n            \"DeliveryAdress\": \"\", // адрес доставки\r\n            \"DeliveryNote\": \"\", // заметки по доставке, опционально\r\n            \"ReceiverName\": \"\", // имя получателя, опционально\r\n            \"Note\": \"\", // заметки по заказу, опционально\r\n            \"Items\": [\r\n                {\r\n                    \"Id\": \"8d55dd91-a000-11ee-8c5f-0025907c5f8d\", // идентификатор товара, в случае, если используются характеристики, имеет формат id_товара#id_характеристики\r\n                    \"IsDelivery\": false, // true, если данная позиция является услугой доставки по заказу\r\n                    \"Quantity\": \"1\", // количество\r\n                    \"Price\": \"17.90\", // цена\r\n                    \"Discount\": \"0.00\", // скидка\r\n                    \"Total\": \"17.90\" // сумма\r\n                }               \r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders/",
+						"description": "Загрузка новый заказов / обновление существуюших (если заказ еще не завершен) в учетной системе."
+					},
+					"response": [
+						{
+							"id": "4c7ceb41-1a8a-4fd1-bfc0-38d8c4346132",
+							"name": "example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"Id\": \"123456\",\r\n            \"Date\": \"2024-08-06\", \r\n            \"Time\": \"16:15:00\", // optional\r\n            \"State\": \"\", // optional\r\n            \"Currency\": \"\", // optional\r\n            \"Buyer\": {\r\n                \"Name\": \"47 Parallel\",\r\n                \"IDNO\": \"\",\r\n                \"IsOrganization\": true,\r\n                \"Adress\": \"\", // optional\r\n                \"LegalAdress\": \"\", // optional\r\n                \"Phone\": \"\", // optional\r\n                \"Email\": \"\" // optional                               \r\n            }, \r\n            \"DeliveryDate\": \"\", // optional\r\n            \"DeliveryMethod\": \"\", // optional\r\n            \"DeliveryAdress\": \"\", \r\n            \"DeliveryNote\": \"\", // optional\r\n            \"ReceiverName\": \"\", // optional\r\n            \"Note\": \"\", // optional\r\n            \"Items\": [\r\n                {\r\n                    \"Id\": \"8d55dd91-a000-11ee-8c5f-0025907c5f8d\",\r\n                    \"IsDelivery\": false, \r\n                    \"Quantity\": \"1\",\r\n                    \"Price\": \"17.90\",\r\n                    \"Discount\": \"0.00\",\r\n                    \"Total\": \"17.90\"\r\n                },\r\n                {\r\n                    \"Id\": \"8d55dd91-a000-11ee-8c5f-0025907c5f8d#8d55dd91-a000-11ee-8c5f-0025907c5f5d\", // characteristic Id after #, if it's used\r\n                    \"IsDelivery\": false,\r\n                    \"Quantity\": \"1\",\r\n                    \"Price\": \"17.90\",\r\n                    \"Discount\": \"0.00\",\r\n                    \"Total\": \"17.90\"\r\n                }                \r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.66:30082/test/hs/site-exchange/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders/"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 14 Aug 2025 13:30:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "241"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"Processed\": 1,\n        \"Uploaded\": [ // успешно загруженные и обновленные\n            {\n                \"Id\": \"123456\",\n                \"Number\": \"НФФР-000001\"\n            }\n        ],\n        \"Skipped\": [], // заказы, которые уже завершены и не могут быть обновлены с сайта, либо на основании их уже введен платеж / накладная\n        \"Updated\": [ // обновленные заказы\n            {\n                \"Id\": \"123456\",\n                \"Number\": \"НФФР-000001\"\n            }\n        ],\n        \"Created\": [] // новые заказы\n    },\n    \"message\": \"\"\n}"
+						}
+					]
+				}
+			],
+			"id": "eb004529-ae38-4343-bde6-54375e0c4149"
+		},
+		{
+			"name": "ping",
+			"id": "30a79085-f79c-4186-8898-1cfe925ff306",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseURL}}/ping",
+				"description": "Проверка соединения с сервисом"
+			},
+			"response": [
+				{
+					"id": "785c10e4-0b28-4879-b8a0-3432ba611058",
+					"name": "ping",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/ping"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 07 Nov 2024 13:43:23 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.23 (Win32) OpenSSL/1.0.2h PHP/7.1.1"
+						},
+						{
+							"key": "User-Agent",
+							"value": "1C Enterprise 8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "ok"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"password": "",
+			"username": "site-exchange"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "28c1ba05-f16c-4f12-aa1a-2bd8b4bd6dbc",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "55103959-4146-4fef-b5ac-662d263b8791",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://192.168.1.66:30082/test/hs/site-exchange"
+		}
+	]
+}

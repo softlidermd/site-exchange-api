@@ -723,7 +723,7 @@
 	"auth": {
 		"type": "basic",
 		"basic": {
-			"password": "",
+			"password": "{{pass}}",
 			"username": "site-exchange"
 		}
 	},
@@ -731,7 +731,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "82969763-5f60-4c6b-9e0f-5f3256534e9c",
+				"id": "32e8ecc9-dc63-47c8-8270-efd5cbc554e3",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -743,7 +743,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "beeb4d02-0d9a-4997-9011-d8fc949fcea0",
+				"id": "710dd120-93a6-4b18-8123-e09077c7a1e0",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -757,6 +757,14 @@
 		{
 			"key": "baseURL",
 			"value": "http://192.168.1.66:30082/test/hs/site-exchange"
+		},
+		{
+			"key": "exchangeID",
+			"value": ""
+		},
+		{
+			"key": "pass",
+			"value": ""
 		}
 	]
 }

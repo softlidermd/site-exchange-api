@@ -287,7 +287,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/confirm/{messageNumber}",
+						"url": "{{baseURL}}/{{exchangeID}}/confirm/{messageNumber}",
 						"description": "Если настроена выгрузка только измененных товаров, то после чтения следует вызвать данный метод для снятия объектов с регистрации."
 					},
 					"response": [
@@ -343,7 +343,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{baseURL}}/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/image/8f802658-eabb-11e5-80c8-50e54939487c",
+						"url": "{{baseURL}}/{{exchangeID}}/image/8f802658-eabb-11e5-80c8-50e54939487c",
 						"description": "Получить изображение по идентификатору.  \nРазработчик сайта анализирует ответ /items и если получены новые картинки, принимает решение о загрузке."
 					},
 					"response": [
@@ -407,7 +407,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "/4ea3f552-7775-11f0-aaf8-e0d55ec9ad06/orders",
+						"url": "{{baseURL}}/{{exchangeID}}/orders",
 						"description": "Получает из учетной системы все зарегистрированные заказы (для обновления статуса)."
 					},
 					"response": [

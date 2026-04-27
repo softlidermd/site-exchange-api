@@ -32,7 +32,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "json",
 							"header": [
 								{
 									"key": "Date",
@@ -56,7 +56,9 @@
 								},
 								{
 									"key": "Content-Type",
-									"value": "application/json"
+									"value": "application/json",
+									"description": "",
+									"type": "text"
 								}
 							],
 							"cookie": [],
@@ -174,7 +176,57 @@
 						"url": "{{baseURL}}/{{exchangeID}}/prices",
 						"description": "Получить все, или только измененные цены - в зависимости от настроек учетной системы.  \nТакже позволяет получить цены конкретного товара."
 					},
-					"response": []
+					"response": [
+						{
+							"id": "2c420b0a-2507-4ad2-921f-3c4ba2b10c11",
+							"name": "prices",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/{{exchangeID}}/prices"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 27 Apr 2026 12:56:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Win64)"
+								},
+								{
+									"key": "Content-Length",
+									"value": "4069"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"responseTime": null,
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2026-04-27T15:56:26\",\n        \"items\": [\n            {\n                \"Id\": \"2eb9678e-e5e1-11e5-80be-080027ad7493\",\n                \"Price\": 575\n            },\n            {\n                \"Id\": \"2eb96790-e5e1-11e5-80be-080027ad7493\",\n                \"Price\": 115\n            },\n            {\n                \"Id\": \"6afde9a9-e9fc-11e5-80c6-50e54939487c\",\n                \"Price\": 17250\n            },\n            {\n                \"Id\": \"28969ccf-ea97-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"28969cd6-ea97-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"8f802656-eabb-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"8f80265f-eabb-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"89ff0415-eabe-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"89ff0417-eabe-11e5-80c8-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"53450077-eb58-11e5-80c9-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e8d5e499-ef78-11e5-80c9-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e8d5e49c-ef78-11e5-80c9-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"8fb84c3b-effe-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"8fb84c3c-effe-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74bae9d-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74bae9e-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74bae9f-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea0-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea1-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea2-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea3-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea4-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea5-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea6-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea7-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea8-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baea9-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeaa-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeab-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeac-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 58\n            },\n            {\n                \"Id\": \"e74baead-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeae-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeaf-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb0-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb1-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb2-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb3-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb4-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb5-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb6-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb7-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb8-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeb9-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baeba-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"e74baebb-f103-11e5-80cb-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"4aa3aca2-060c-11e6-80d4-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"f8c550fd-06c3-11e6-80d4-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"62bdde87-3d2c-11e6-80df-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"62bdde90-3d2c-11e6-80df-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"bb57d436-3e99-11e6-80df-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"3ea2ccd0-3f55-11e6-80df-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"98f5b9b4-79a7-11e6-80f0-50e54939487c\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"f0773dc1-d1e2-11e6-82b1-902b34cd5eb4\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"677f5c32-db94-11e5-9be3-1078d2158b08\",\n                \"Price\": 100\n            },\n            {\n                \"Id\": \"677f5c33-db94-11e5-9be3-1078d2158b08\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"677f5c34-db94-11e5-9be3-1078d2158b08\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"677f5c35-db94-11e5-9be3-1078d2158b08\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"677f5c36-db94-11e5-9be3-1078d2158b08\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"433dd288-e049-11e5-9be3-1078d2158b08\",\n                \"Price\": 0\n            },\n            {\n                \"Id\": \"a912f0f8-22f7-11ea-a3c8-00e04c680269\",\n                \"Price\": 0\n            }\n        ]\n    },\n    \"message\": \"\"\n}"
+						}
+					]
 				},
 				{
 					"name": "stocks",
@@ -198,7 +250,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "json",
 							"header": [
 								{
 									"key": "Date",
@@ -222,7 +274,9 @@
 								},
 								{
 									"key": "Content-Type",
-									"value": "application/json"
+									"value": "application/json",
+									"description": "",
+									"type": "text"
 								}
 							],
 							"cookie": [],

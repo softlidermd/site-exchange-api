@@ -819,7 +819,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "32e8ecc9-dc63-47c8-8270-efd5cbc554e3",
+				"id": "838f2e9d-bbbe-4ac5-b503-cffa79375473",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -831,7 +831,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "710dd120-93a6-4b18-8123-e09077c7a1e0",
+				"id": "e9e02914-d5f6-42ae-bab5-13199f2107df",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -844,11 +844,11 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "http://192.168.1.66:30082/test/hs/site-exchange"
+			"value": "http://192.168.1.66:30081/Demo12/hs/site-exchange"
 		},
 		{
 			"key": "exchangeID",
-			"value": ""
+			"value": "58169c49-795c-11ee-b2fd-001a7dda7115"
 		},
 		{
 			"key": "pass",
